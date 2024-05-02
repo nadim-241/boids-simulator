@@ -4,12 +4,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Frame extends JFrame {
-    private RefreshableCanvas canvas;
+    private final RefreshableCanvas canvas;
 
-    private int avoidFactor;
 
-    int x = 600;
-    int y = 400;
+    int x = 1200;
+    int y = 600;
 
     int leftMargin = 50;
     int rightMargin = x - 50;
@@ -17,15 +16,8 @@ public class Frame extends JFrame {
     int topMargin = 50;
 
     int bottomMargin = y - 50;
-    private double matchingFactor = 0.05;
-    private double minSpeed = 2;
-    private double maxSpeed = 3;
 
-    private double turnFactor = 0.2;
-    private double centringFactor = 0.0005;
-
-    private double visibleDistance = 100;
-    private ArrayList<Boid> boids = new ArrayList<Boid>();
+    private final ArrayList<Boid> boids = new ArrayList<>();
 
     public Frame(int numBoids) {
         super("canvas");
@@ -35,12 +27,12 @@ public class Frame extends JFrame {
         this.canvas = new RefreshableCanvas();
         canvas.setBoids(boids);
         canvas.setSize(new Dimension(x,y));
+        canvas.setDoubleBuffered(true);
         add(canvas);
         setSize(x, y);
         setVisible(true);
-        while(true) {
-            update();
-        }
+        javax.swing.Timer timer = new javax.swing.Timer(1, e -> update());
+        timer.start();
     }
 
     public void update() {
@@ -54,41 +46,51 @@ public class Frame extends JFrame {
 
             double xPos_average = 0;
             double yPos_average = 0;
+
             for(Boid otherBoid : boids) {
                 if(boid == otherBoid) {
                     continue;
                 }
-
-
-                close_dx += boid.x - otherBoid.x;
-                close_dy += boid.y - otherBoid.y;
-
-                double distance = Math.sqrt(Math.pow(Math.abs(boid.x - otherBoid.x), 2) + Math.pow(Math.abs(boid.y - otherBoid.y), 2));
-                if(distance > visibleDistance) {
+                double dx = boid.x - otherBoid.x;
+                double dy = boid.y - otherBoid.y;
+                double visibleDistance = 60;
+                if(Math.abs(dx) > visibleDistance || Math.abs(dy) > visibleDistance) {
                     continue;
                 }
+                double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-                xPos_average += otherBoid.x;
-                yPos_average += otherBoid.y;
 
-                avg_xVel += otherBoid.vx;
-                avg_yVel += otherBoid.vy;
-                neighbouring_boids += 1;
+                double protectedRange = 10;
+                if(distance < protectedRange) {
+                    close_dx += boid.x - otherBoid.x;
+                    close_dy += boid.y - otherBoid.y;
+                }
+                else if(distance < visibleDistance) {
+
+                    xPos_average += otherBoid.x;
+                    yPos_average += otherBoid.y;
+                    avg_xVel += otherBoid.vx;
+                    avg_yVel += otherBoid.vy;
+                    neighbouring_boids += 1;
+                }
 
             }
             if(neighbouring_boids > 0) {
-                boid.vx += (avg_xVel - boid.vx) * matchingFactor;
-                boid.vy += (avg_yVel - boid.vy) * matchingFactor;
-
                 xPos_average = xPos_average/neighbouring_boids;
                 yPos_average  = yPos_average/neighbouring_boids;
+                avg_xVel = avg_xVel/neighbouring_boids;
+                avg_yVel = avg_xVel/neighbouring_boids;
 
-                boid.vx += xPos_average*centringFactor;
-                boid.vy += yPos_average*centringFactor;
+                double matchingFactor = 0.05;
+                double centringFactor = 0.009;
+                boid.vx += (xPos_average - boid.x) * centringFactor + (avg_xVel - boid.vx) * matchingFactor;
+                boid.vy += (yPos_average - boid.y) * centringFactor + (avg_yVel - boid.vy) * matchingFactor;
             }
+            double avoidFactor = 0.1;
             boid.vx += close_dx * avoidFactor;
             boid.vy += close_dy * avoidFactor;
 
+            double turnFactor = 0.5;
             if(boid.x < leftMargin) {
                 boid.vx += turnFactor;
             }
@@ -101,19 +103,22 @@ public class Frame extends JFrame {
             if(boid.y > bottomMargin) {
                 boid.vy -= turnFactor;
             }
-            double speed = Math.sqrt(Math.pow(boid.x, 2) + Math.pow(boid.vy, 2));
+            double speed = Math.sqrt(Math.pow(boid.vx, 2) + Math.pow(boid.vy, 2));
+            double minSpeed = 3;
             if(speed < minSpeed) {
-                boid.vx = (boid.vx/speed)*minSpeed;
-                boid.vy = (boid.vy/speed)*minSpeed;
+                boid.vx = (boid.vx/speed)* minSpeed;
+                boid.vy = (boid.vy/speed)* minSpeed;
             }
+            double maxSpeed = 7;
             if(speed > maxSpeed) {
-                boid.vx = (boid.vx/speed)*maxSpeed;
-                boid.vy = (boid.vy/speed)*maxSpeed;
+                boid.vx = (boid.vx/speed)* maxSpeed;
+                boid.vy = (boid.vy/speed)* maxSpeed;
             }
             boid.x += boid.vx;
             boid.y += boid.vy;
         }
         canvas.setBoids(boids);
+        canvas.removeAll();
         canvas.repaint();
     }
 }

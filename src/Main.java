@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        Frame frame = new Frame(50);
+        Frame frame = new Frame(1000);
     }
 }

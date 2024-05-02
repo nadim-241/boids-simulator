@@ -8,6 +8,8 @@ public class Boid {
     public Boid(int init_X, int init_Y) {
         this.x = init_X;
         this.y = init_Y;
+        vx = 2.5;
+        vy = 3;
     }
 
 

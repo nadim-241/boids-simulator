@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f92bff9a-b3aa-49b0-a568-7ecf2aecbf6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Boids.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Boid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Frame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RefreshableCanvas.java" afterDir="false" />
+    <list default="true" id="f92bff9a-b3aa-49b0-a568-7ecf2aecbf6e" name="Changes" comment="doesn't work very well">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Boid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Boid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RefreshableCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RefreshableCanvas.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,25 +82,33 @@
       <option name="presentableId" value="Default" />
       <updated>1714643819559</updated>
       <workItem from="1714643820634" duration="1094000" />
-      <workItem from="1714644929575" duration="2048000" />
+      <workItem from="1714644929575" duration="5589000" />
     </task>
+    <task id="LOCAL-00001" summary="doesn't work very well">
+      <option name="closed" value="true" />
+      <created>1714647118455</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714647118455</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="doesn't work very well" />
+    <option name="LAST_COMMIT_MESSAGE" value="doesn't work very well" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Frame.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/RefreshableCanvas.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
+          <line>119</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
